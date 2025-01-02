@@ -1,25 +1,66 @@
+import { useState } from "react";
 import "./App.css"
 
+
 export default function LoginForm() {
+   
+    const [user, setUser] = useState({
+        firstName:"",
+        lastName:"",
+        email:"",
+        age:"",
+        phoneNumber:""
+    });
+
+    
+    const handleInputChange =(e)=>{
+        const { name, value }=e.target;
+        setUser((prev) => ({
+            ...prev, // Preserve existing fields
+            [name]: value, // Update the current field
+          }));
+
+        };
+
+    const handleSubmit =(event)=>{
+        event.preventDefault();
+        console.log("Form submitted");
+        const formData ={...user };
+        console.log(formData)
+        
+        setUser({
+            firstName: "",
+            lastName: "",
+            email: "",
+            age: "",
+            phoneNumber: "",
+          });
+    
+    }
+
+   
+
   return (
-    <div>
-      <form className="flex flex-col " >
+    <div className="bg-gray-200 p-10 rounded-2xl shadow-2xl ">
+      <form className="flex flex-col " onSubmit={handleSubmit} >
 
         <label htmlFor="firstName">First name:</label>
-        <input type="text" name="firstName" />
+        <input type="text" name="firstName" value={user.firstName} onChange={handleInputChange} />
 
         <label htmlFor="lastName">Last name:</label>
-        <input type="text" name="lastName" />
+        <input type="text" name="lastName" value={user.lastName} onChange={handleInputChange} />
         
         <label htmlFor="email">Email:</label>
-        <input type="email" name="email" />  
+        <input type="email" name="email"  value={user.email} onChange={handleInputChange}/>  
 
         <label htmlFor="age">Age:</label>
-        <input type="age" name="age" />
+        <input type="number" name="age" value={user.age} onChange={handleInputChange}/>
         
          <label htmlFor="phoneNumber">Phone:</label>
-        <input type="number" name="phoneNumber" />
+        <input type="number" name="phoneNumber" value={user.phoneNumber} onChange={handleInputChange} />
 
+        <button className="p-2  m-6 bg-slate-950 text-white  " >Submit</button>
+        
       </form>
     </div>
   )
