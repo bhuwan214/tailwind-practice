@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css"
 
 
-export default function LoginForm() {
+export default function LoginForm({ onSubmitForm }) {
    
     const [user, setUser] = useState({
         firstName:"",
@@ -24,10 +24,9 @@ export default function LoginForm() {
 
     const handleSubmit =(event)=>{
         event.preventDefault();
-        console.log("Form submitted");
         const formData ={...user };
-        console.log(formData)
-        
+        onSubmitForm(formData)
+
         setUser({
             firstName: "",
             lastName: "",
@@ -41,8 +40,8 @@ export default function LoginForm() {
    
 
   return (
-    <div className="bg-gray-200 p-10 rounded-2xl shadow-2xl ">
-      <form className="flex flex-col " onSubmit={handleSubmit} >
+    <div className="bg-gray-200 w-[350px] flex flex-col justify-center items-center  p-10 rounded-2xl shadow-2xl ">
+      <form className=" " onSubmit={handleSubmit} >
 
         <label htmlFor="firstName">First name:</label>
         <input type="text" name="firstName" value={user.firstName} onChange={handleInputChange} />
